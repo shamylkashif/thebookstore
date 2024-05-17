@@ -9,7 +9,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,102 +62,74 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 14),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter First Name";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Enter UserName',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.person_2, color: blue),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 14),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          labelText: 'Enter UserName',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: const Icon(Icons.person_2, color: blue),
                         ),
                       ),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter User Email";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Enter Your Email',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.email, color: blue),
+                    ),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          labelText: 'Enter Your Email',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: const Icon(Icons.email, color: blue),
                         ),
                       ),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Your Password";
-                            } else if (value.length <= 5) {
-                              return "Password must have at least 6 characters";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.password, color: blue),
+                    ),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: const Icon(Icons.password, color: blue),
                         ),
                       ),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Enter Your Password";
-                            } else if (value.length <= 5) {
-                              return "Password must have at least 6 characters";
-                            }
-                            // No need to check password match in UI-only code
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Confirm Password',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.password_rounded, color: blue),
+                    ),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          labelText: 'Confirm Password',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: const Icon(Icons.password_rounded, color: blue),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -166,10 +137,7 @@ class _SignupScreenState extends State<SignupScreen> {
               padding: const EdgeInsets.only(top: 510, left: 116),
               child: GestureDetector(
                 onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Handle the form submission in the backend
-                  }
-                },
+                  },
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
                   decoration: BoxDecoration(
