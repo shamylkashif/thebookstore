@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:thebookstore/signup-screen.dart';
-
 import 'commons/colors.dart';
 import 'home-screen.dart';
 
@@ -12,6 +11,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String _username = '';
+  String _password = '';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 250, left: 47),
               child: Container(
-                height: 130,
+                height: 180,
                 width: 265,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -64,51 +67,77 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 14),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 14),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            labelText: 'User Name',
+                            labelStyle: const TextStyle(color: blue),
+                            suffixIcon: const Icon(Icons.person_2, color: blue),
                           ),
-                          labelText: 'User Name',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.person_2, color: blue),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your username';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _username = value!;
+                          },
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            labelText: 'Password',
+                            labelStyle: const TextStyle(color: blue),
+                            suffixIcon: const Icon(Icons.password, color: blue),
                           ),
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.password, color: blue),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _password = value!;
+                          },
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 410, left: 116),
+              padding: const EdgeInsets.only(top: 430, left: 116),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  );
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    // Perform login with _username and _password
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    );
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
@@ -135,14 +164,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 460, left: 130),
+              padding: EdgeInsets.only(top: 480, left: 130),
               child: Text(
                 'Forgot Password?',
                 style: TextStyle(fontSize: 13, color: blue),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 480, left: 95),
+              padding: const EdgeInsets.only(top: 500, left: 95),
               child: Row(
                 children: [
                   const Text(

@@ -9,6 +9,11 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String _username = '';
+  String _email = '';
+  String _password = '';
+  String _confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -62,74 +67,114 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 14),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 14),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            labelText: 'Enter UserName',
+                            labelStyle: const TextStyle(color: blue),
+                            suffixIcon: const Icon(Icons.person_2, color: blue),
                           ),
-                          labelText: 'Enter UserName',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.person_2, color: blue),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a username';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _username = value!;
+                          },
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            labelText: 'Enter Your Email',
+                            labelStyle: const TextStyle(color: blue),
+                            suffixIcon: const Icon(Icons.email, color: blue),
                           ),
-                          labelText: 'Enter Your Email',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.email, color: blue),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter an email';
+                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _email = value!;
+                          },
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            labelText: 'Password',
+                            labelStyle: const TextStyle(color: blue),
+                            suffixIcon: const Icon(Icons.password, color: blue),
                           ),
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.password, color: blue),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a password';
+                            } else if (value.length < 6) {
+                              return 'Password must be at least 6 characters long';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _password = value!;
+                          },
                         ),
                       ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                        child: TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            labelText: 'Confirm Password',
+                            labelStyle: const TextStyle(color: blue),
+                            suffixIcon: const Icon(Icons.password_rounded, color: blue),
                           ),
-                          labelText: 'Confirm Password',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.password_rounded, color: blue),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please confirm your password';
+                            } else if (value != _password) {
+                              return 'Passwords do not match';
+                            }
+                            return null;
+                          },
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -137,7 +182,14 @@ class _SignupScreenState extends State<SignupScreen> {
               padding: const EdgeInsets.only(top: 510, left: 116),
               child: GestureDetector(
                 onTap: () {
-                  },
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    // Process the data
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Processing Data')),
+                    );
+                  }
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
                   decoration: BoxDecoration(
