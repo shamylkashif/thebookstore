@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../commons/colors.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -14,6 +15,55 @@ class _SignupScreenState extends State<SignupScreen> {
   String _email = '';
   String _password = '';
   String _confirmPassword = '';
+  bool _passwordVisible = false;
+  bool _confirmPasswordVisible = false;
+
+  void _showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  void _signup() {
+    if (_username.isEmpty) {
+      _showToast('Please enter a username');
+      return;
+    }
+    if (_email.isEmpty) {
+      _showToast('Please enter an email');
+      return;
+    }
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(_email)) {
+      _showToast('Please enter a valid email');
+      return;
+    }
+    if (_password.isEmpty) {
+      _showToast('Please enter a password');
+      return;
+    }
+    if (_password.length < 6) {
+      _showToast('Password must be at least 6 characters long');
+      return;
+    }
+    if (_confirmPassword.isEmpty) {
+      _showToast('Please confirm your password');
+      return;
+    }
+    if (_password != _confirmPassword) {
+      _showToast('Passwords do not match');
+      return;
+    }
+    // Process the data
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Processing Data')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,129 +117,111 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 14),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Enter UserName',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.person_2, color: blue),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 14),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a username';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _username = value!;
-                          },
+                          labelText: 'Enter UserName',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: const Icon(Icons.person_2, color: blue),
                         ),
+                        onChanged: (value) {
+                          _username = value;
+                        },
                       ),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Enter Your Email',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.email, color: blue),
+                    ),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter an email';
-                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                              return 'Please enter a valid email';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _email = value!;
-                          },
+                          labelText: 'Enter Your Email',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: const Icon(Icons.email, color: blue),
                         ),
+                        onChanged: (value) {
+                          _email = value;
+                        },
                       ),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.password, color: blue),
+                    ),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+                        obscureText: !_passwordVisible,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a password';
-                            } else if (value.length < 6) {
-                              return 'Password must be at least 6 characters long';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _password = value!;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                              color: blue,
                             ),
-                            labelText: 'Confirm Password',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.password_rounded, color: blue),
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please confirm your password';
-                            } else if (value != _password) {
-                              return 'Passwords do not match';
-                            }
-                            return null;
-                          },
                         ),
+                        onChanged: (value) {
+                          _password = value;
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      width: 400,
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      child: TextFormField(
+                        obscureText: !_confirmPasswordVisible,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          labelText: 'Confirm Password',
+                          labelStyle: const TextStyle(color: blue),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                              color: blue,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _confirmPasswordVisible = !_confirmPasswordVisible;
+                              });
+                            },
+                          ),
+                        ),
+                        onChanged: (value) {
+                          _confirmPassword = value;
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 510, left: 116),
               child: GestureDetector(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    // Process the data
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Processing Data')),
-                    );
-                  }
-                },
+                onTap: _signup,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
                   decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:thebookstore/signup-screen.dart';
 import 'commons/colors.dart';
 import 'home-screen.dart';
@@ -14,6 +15,35 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
+  bool _obscureText = true;
+
+  void _showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  void _login() {
+    if (_username.isEmpty) {
+      _showToast('Please enter your username');
+      return;
+    }
+    if (_password.isEmpty) {
+      _showToast('Please enter your password');
+      return;
+    }
+    // Perform login with _username and _password
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 250, left: 47),
               child: Container(
-                height: 180,
+                height: 155,
                 width: 265,
                 decoration: const BoxDecoration(
                   color: Colors.white,
@@ -85,39 +115,38 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelStyle: const TextStyle(color: blue),
                             suffixIcon: const Icon(Icons.person_2, color: blue),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your username';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _username = value!;
+                          onChanged: (value) {
+                            _username = value;
                           },
                         ),
                       ),
+                      const SizedBox(height: 5),
                       Container(
                         width: 400,
                         height: 50,
                         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                         child: TextFormField(
-                          obscureText: true,
+                          obscureText: _obscureText,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                             labelText: 'Password',
                             labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.password, color: blue),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscureText ? Icons.visibility_off : Icons.visibility,
+                                color: blue,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _password = value!;
+                          onChanged: (value) {
+                            _password = value;
                           },
                         ),
                       ),
@@ -129,16 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 430, left: 116),
               child: GestureDetector(
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    // Perform login with _username and _password
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
-                  }
-                },
+                onTap: _login,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
                   decoration: BoxDecoration(
