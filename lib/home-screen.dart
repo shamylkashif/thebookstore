@@ -4,6 +4,7 @@ import 'package:thebookstore/drawer/about_us.dart';
 import 'package:thebookstore/drawer/logout.dart';
 import 'package:thebookstore/drawer/profile.dart';
 import 'package:thebookstore/drawer/settings.dart';
+import 'package:thebookstore/screens/filter_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -161,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(Icons.filter_list_alt, color: Colors.yellow[700]),
                   onPressed: () {
-                    // Implement filter functionality here
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> FilterScreen() ));
                   },
                 ),
               ],
