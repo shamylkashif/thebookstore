@@ -49,109 +49,74 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/backgrdImg (2).png"),
-                  fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 450),
+              child: Align(
+                alignment: Alignment.center,
+                child: Image.asset('assets/LogoWot.png',
+                height: 300,
+                width: 250,
                 ),
-              ),
-            ),
-            Container(
-              height: 300,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: yellow,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.elliptical(MediaQuery.of(context).size.width, 80.0),
-                ),
-              ),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 60),
-                    child: Image.asset('assets/LogoWot.png', height: 240, width: 240),
-                  ),
-                ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 250, left: 47),
-              child: Container(
-                height: 155,
-                width: 265,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40),
-                    bottomLeft: Radius.circular(40),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 4,
-                      offset: Offset(4, 4), // Shadow position
+              padding: const EdgeInsets.only(top: 250, left: 40, right: 40),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 5),
+                    Container(
+                      width: 400,
+                      height: 60,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          labelText: 'User Name',
+                          labelStyle: const TextStyle(color: Colors.white),
+                          prefixIcon: const Icon(Icons.person_2, color: Colors.white),
+                        ),
+                        onChanged: (value) {
+                          _username = value;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Container(
+                      width: 400,
+                      height: 60,
+                      child: TextFormField(
+                        obscureText: _obscureText,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(color: Colors.white),
+                          prefixIcon: IconButton(
+                            icon: Icon(
+                              _obscureText ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                          ),
+                        ),
+                        onChanged: (value) {
+                          _password = value;
+                        },
+                      ),
                     ),
                   ],
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 14),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'User Name',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: const Icon(Icons.person_2, color: blue),
-                          ),
-                          onChanged: (value) {
-                            _username = value;
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        child: TextFormField(
-                          obscureText: _obscureText,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(color: blue),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscureText ? Icons.visibility_off : Icons.visibility,
-                                color: blue,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                            ),
-                          ),
-                          onChanged: (value) {
-                            _password = value;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
             ),
