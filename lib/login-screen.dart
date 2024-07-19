@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:thebookstore/signup-screen.dart';
 import 'commons/colors.dart';
+import 'forgotpass.dart';
 import 'home-screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -74,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 400,
                       height: 60,
                       child: TextFormField(
+                        style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(0),
@@ -92,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 400,
                       height: 60,
                       child: TextFormField(
+                        style: TextStyle(color: Colors.white),
                         obscureText: _obscureText,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -121,21 +124,39 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 430, left: 116),
+              padding: const EdgeInsets.only(top: 415, left: 30),
+              child: GestureDetector(
+                onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword() ));
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    color: Color(0xFF444141DD),
+
+                  ),
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 415, left: 190),
               child: GestureDetector(
                 onTap: _login,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 9),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: yellow,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 1,
-                        offset: Offset(2, 2), // Shadow position
-                      ),
-                    ],
+                    borderRadius: BorderRadius.circular(3),
+                    color: Colors.yellow[700],
+
                   ),
                   child: const Text(
                     "Login",
@@ -148,39 +169,37 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 480, left: 130),
-              child: Text(
-                'Forgot Password?',
-                style: TextStyle(fontSize: 13, color: blue),
-              ),
-            ),
+               Padding(
+                 padding: const EdgeInsets.only(top: 515, left: 80),
+                 child: Container(
+                   padding: EdgeInsets.symmetric(horizontal: 30,vertical: 9),
+                   decoration: BoxDecoration(
+                     color: Color(0xFF444141DD),
+                   ),
+                   child: Text('Register',
+                   style: TextStyle(
+                       fontWeight: FontWeight.bold,
+                       fontSize: 18,
+                       color: Colors.white
+                   ),
+                   ),
+                 ),
+               ),
             Padding(
-              padding: const EdgeInsets.only(top: 500, left: 95),
-              child: Row(
-                children: [
-                  const Text(
-                    'Do not have an account?',
-                    style: TextStyle(fontSize: 13, color: blue),
+              padding: const EdgeInsets.only(top: 515, left: 210.1),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen() ));
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.yellow[700],
                   ),
-                  const SizedBox(width: 3),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SignupScreen()),
-                      );
-                    },
-                    child: const Text(
-                      'Signup',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  child: Icon(Icons.chevron_right,
+                       color: blue,
                   ),
-                ],
+                ),
               ),
             ),
           ],
