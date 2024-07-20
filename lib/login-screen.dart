@@ -58,22 +58,25 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.only(bottom: 450),
               child: Align(
                 alignment: Alignment.center,
-                child: Image.asset('assets/LogoWot.png',
+                child: Image.asset('assets/LogoWot1.png',
                 height: 300,
                 width: 250,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 250, left: 40, right: 40),
+              padding: const EdgeInsets.only(top: 220,left: 40),
+              child: Text('Welcome Back!', style: TextStyle(
+                  color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold
+              ),),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 270, left: 40, right: 40),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(height: 5),
-                    Text('Welcome Back!', style: TextStyle(
-
-                    ),),
+                    SizedBox(height: 15,),
                     Container(
                       width: 400,
                       height: 60,
@@ -127,31 +130,31 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 415, left: 30),
-              child: GestureDetector(
-                onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword() ));
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    color: Color(0xFF444141DD),
-
+              padding: const EdgeInsets.only(top: 455, left:  30),
+              child: TextButton(
+                  onPressed: (){
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context){
+                          return ForgotPassword();
+                        }
+                    );
+                    },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(
+                      9, 17, 23, 0.8549019607843137,),
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical:12 ),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3))
                   ),
-                  child: const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+                  child: Text('Forgot Password?', style:TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.white,
+                  ), )),
             ),
+
             Padding(
-              padding: const EdgeInsets.only(top: 415, left: 190),
+              padding: const EdgeInsets.only(top: 455, left: 190),
               child: GestureDetector(
                 onTap: _login,
                 child: Container(
@@ -173,12 +176,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
                Padding(
-                 padding: const EdgeInsets.only(top: 515, left: 80),
+                 padding: const EdgeInsets.only(top: 535, left: 80),
                  child: Container(
                    padding: EdgeInsets.symmetric(horizontal: 30,vertical: 9),
                    decoration: BoxDecoration(
-                     color: Color(0xFF444141DD),
-                   ),
+                     color: Color.fromRGBO(
+                       9, 17, 23, 0.8549019607843137,),
+                     ),
                    child: Text('Register',
                    style: TextStyle(
                        fontWeight: FontWeight.bold,
@@ -189,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                  ),
                ),
             Padding(
-              padding: const EdgeInsets.only(top: 515, left: 210.1),
+              padding: const EdgeInsets.only(top: 535, left: 210.1),
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen() ));

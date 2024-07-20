@@ -36,7 +36,7 @@ class _SpleshScreenState extends State<SpleshScreen> {
 
             Padding(
               padding: EdgeInsets.only(left: 55,top: 120),
-              child:   Image.asset('assets/LogoWot.png',
+              child:   Image.asset('assets/LogoWot1.png',
                 height: 250, width: 250,),
             )
           ]
