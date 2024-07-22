@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thebookstore/commons/colors.dart';
 import 'package:thebookstore/reset.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -12,9 +13,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 100,top: 20 ),
+      padding: EdgeInsets.only(bottom: 150,top: 40 ),
       decoration: BoxDecoration(
-        color: Color(0xFF333333),
+        color: yellow,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20.0),
           topRight: Radius.circular(20.0),
@@ -25,18 +26,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         children: [
           Text(
             'Make Selection!',
-            style: TextStyle(color: Colors.white, fontSize: 18.0),
+            style: TextStyle(color: blue, fontSize: 18.0),
           ),
           SizedBox(height: 10.0),
           ListTile(
-            leading: Icon(Icons.email, color: Colors.white),
+            leading: Icon(Icons.email, color: blue),
             title: Text(
               'E-Mail',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: blue),
             ),
             subtitle: Text(
               'Reset via Mail Verification',
-              style: TextStyle(color: Colors.white70),
+              style: TextStyle(color: blue),
             ),
             onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context)=>  Reset())
@@ -44,14 +45,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.phone, color: Colors.white),
+            leading: Icon(Icons.phone, color: blue),
             title: Text(
               'Phone No',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: blue),
             ),
             subtitle: Text(
               'Reset via Phone Verification',
-              style: TextStyle(color: Colors.white70),
+              style: TextStyle(color: blue),
             ),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context)=> Reset())
