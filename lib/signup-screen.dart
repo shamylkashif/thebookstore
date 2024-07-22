@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:thebookstore/login-screen.dart';
 import '../commons/colors.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -10,7 +11,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _email = '';
   String _password = '';
@@ -59,181 +59,149 @@ class _SignupScreenState extends State<SignupScreen> {
       _showToast('Passwords do not match');
       return;
     }
-    // Process the data
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Processing Data')),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/backgrdImg (2).png"),
-                  fit: BoxFit.cover,
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 450),
+              child: Align(
+                alignment: Alignment.center,
+                child: Image.asset('assets/LogoWot1.png',
+                  height: 300,
+                  width: 250,
                 ),
               ),
             ),
-            Container(
-              height: 300,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: yellow,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.elliptical(MediaQuery.of(context).size.width, 80.0),
-                ),
-              ),
-              child: Stack(
+            Padding(
+              padding: const EdgeInsets.only(top: 230,left: 80),
+              child: Text('Create an account', style: TextStyle(
+                  color: Colors.white,fontSize: 24,fontWeight: FontWeight.bold
+              ),),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 300),
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 60),
-                    child: Image.asset('assets/LogoWot.png', height: 240, width: 240),
+                  const SizedBox(height: 14),
+                  Container(
+                    width: 400,
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        labelText: 'Enter UserName',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        prefixIcon: const Icon(Icons.person_2, color: Colors.white),
+                      ),
+                      onChanged: (value) {
+                        _username = value;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 400,
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        labelText: 'Enter Your Email',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        prefixIcon: const Icon(Icons.email, color: Colors.white),
+                      ),
+                      onChanged: (value) {
+                        _email = value;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 400,
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      obscureText: !_passwordVisible,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        labelText: 'Password',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        prefixIcon: IconButton(
+                          icon: Icon(
+                            _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible;
+                            });
+                          },
+                        ),
+                      ),
+                      onChanged: (value) {
+                        _password = value;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 400,
+                    height: 60,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.white),
+                      obscureText: !_confirmPasswordVisible,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        labelText: 'Confirm Password',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        prefixIcon: IconButton(
+                          icon: Icon(
+                            _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _confirmPasswordVisible = !_confirmPasswordVisible;
+                            });
+                          },
+                        ),
+                      ),
+                      onChanged: (value) {
+                        _confirmPassword = value;
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 250, left: 47),
-              child: Container(
-                height: 230,
-                width: 265,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40),
-                    bottomLeft: Radius.circular(40),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 4,
-                      offset: Offset(4, 4), // Shadow position
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 14),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          labelText: 'Enter UserName',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.person_2, color: blue),
-                        ),
-                        onChanged: (value) {
-                          _username = value;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          labelText: 'Enter Your Email',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: const Icon(Icons.email, color: blue),
-                        ),
-                        onChanged: (value) {
-                          _email = value;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-                        obscureText: !_passwordVisible,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                              color: blue,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
-                            },
-                          ),
-                        ),
-                        onChanged: (value) {
-                          _password = value;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 400,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: TextFormField(
-                        obscureText: !_confirmPasswordVisible,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          labelText: 'Confirm Password',
-                          labelStyle: const TextStyle(color: blue),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                              color: blue,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _confirmPasswordVisible = !_confirmPasswordVisible;
-                              });
-                            },
-                          ),
-                        ),
-                        onChanged: (value) {
-                          _confirmPassword = value;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 510, left: 116),
+              padding: const EdgeInsets.only(top: 590, left: 116),
               child: GestureDetector(
                 onTap: _signup,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 9),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(3),
                     color: yellow,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 1,
-                        offset: Offset(2, 2), // Shadow position
-                      ),
-                    ],
                   ),
                   child: const Text(
                     "Signup",

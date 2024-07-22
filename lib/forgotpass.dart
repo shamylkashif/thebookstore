@@ -26,14 +26,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         children: [
           Text(
             'Make Selection!',
-            style: TextStyle(color: blue, fontSize: 18.0),
+            style: TextStyle(color: blue, fontSize: 20.0),
           ),
           SizedBox(height: 10.0),
           ListTile(
             leading: Icon(Icons.email, color: blue),
             title: Text(
               'E-Mail',
-              style: TextStyle(color: blue),
+              style: TextStyle(color: blue, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
               'Reset via Mail Verification',
@@ -48,7 +48,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             leading: Icon(Icons.phone, color: blue),
             title: Text(
               'Phone No',
-              style: TextStyle(color: blue),
+              style: TextStyle(color: blue, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(
               'Reset via Phone Verification',
