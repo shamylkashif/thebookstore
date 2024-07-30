@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thebookstore/screens/login-screen.dart';
 
 class LogOut extends StatefulWidget {
   const LogOut({super.key});
@@ -10,6 +11,13 @@ class LogOut extends StatefulWidget {
 class _LogOutState extends State<LogOut> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body:ElevatedButton(
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+        },
+        child:Column() ,
+      ),
+    );
   }
 }

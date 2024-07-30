@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thebookstore/commons/colors.dart';
-import 'package:thebookstore/reset.dart';
+import 'package:thebookstore/screens/reset.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});

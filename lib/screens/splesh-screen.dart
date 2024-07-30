@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:thebookstore/commons/colors.dart';
-import 'package:thebookstore/login-screen.dart';
+import 'package:thebookstore/screens/login-screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:thebookstore/commons/colors.dart';
-import 'package:thebookstore/forgotpass.dart';
+import 'package:thebookstore/screens/forgotpass.dart';
 
 class Reset extends StatefulWidget {
   const Reset({super.key});
@@ -97,9 +97,12 @@ class _ResetState extends State<Reset> {
           ),
           SizedBox(height: 20),
           if (_isMessageVisible)
-            Text(
-              'Reset Password link is sent to your Email, check your inbox',
-              style: TextStyle(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                'Reset Password link is sent to your Email, check your inbox',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
         ],
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thebookstore/splesh-screen.dart';
+import 'package:thebookstore/screens/splesh-screen.dart';
 
 void main(){
   runApp(const MyApp());

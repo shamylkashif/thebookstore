@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:thebookstore/login-screen.dart';
-import '../commons/colors.dart';
+import 'package:thebookstore/screens/login-screen.dart';
+import '../../commons/colors.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

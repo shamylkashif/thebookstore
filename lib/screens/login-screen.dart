@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:thebookstore/signup-screen.dart';
-import 'commons/colors.dart';
+import 'package:thebookstore/screens/signup-screen.dart';
+import '../commons/colors.dart';
 import 'forgotpass.dart';
 import 'home-screen.dart';
 

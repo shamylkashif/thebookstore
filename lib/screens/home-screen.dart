@@ -6,19 +6,7 @@ import 'package:thebookstore/drawer/profile.dart';
 import 'package:thebookstore/drawer/settings.dart';
 import 'package:thebookstore/screens/filter_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -30,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  final List<Map<String, String>> books = [
+  final List books = [
     {
       'title': 'Harry Potter',
       'author': 'J.K. Rowling',
@@ -274,10 +262,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   ListTile _buildDrawerItem(IconData icon, String title, int index) {
     return ListTile(
-      leading: Icon(icon, color: _selectedIndex == index ? Colors.yellow[700] : Colors.white),
+      leading: Icon(icon,
+          color: _selectedIndex == index ? Colors.yellow[700] : Colors.white),
       title: Text(
         title,
-        style: TextStyle(color: _selectedIndex == index ? Colors.yellow[700] : Colors.white),
+        style: TextStyle(
+            color: _selectedIndex == index ? Colors.yellow[700] : Colors.white),
       ),
       tileColor: _selectedIndex == index ? Colors.yellow : Colors.transparent,
       onTap: () {
